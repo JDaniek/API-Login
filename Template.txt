@@ -1,0 +1,1 @@
+Este es una plantilla para crear una API REST sencilla hecha con javalin.
