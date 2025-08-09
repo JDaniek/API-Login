@@ -1,24 +1,23 @@
 package org.example;
 
 import io.javalin.Javalin;
-import org.example.controllers.UsuarioController; // <-- ✅ IMPORTANTE
-import org.example.routes.UsuarioRoutes;
+import org.example.di.AppModule;
 
 public class Main {
     public static void main(String[] args) {
 
+        // Configuración del servidor
         Javalin app = Javalin.create(config -> {
             config.bundledPlugins.enableCors(cors -> {
-                cors.addRule(rule -> rule.anyHost()); // permite peticiones desde cualquier origen (útil para pruebas)
+                cors.addRule(rule -> rule.anyHost());
             });
-        }).start("0.0.0.0", 7000);
+        }).start( 7000);
 
+        // Ruta de prueba
         app.get("/", ctx -> ctx.result("Hola, mundo!"));
 
-        // ✅ Instanciamos el controlador y las rutas
-        UsuarioController usuarioController = new UsuarioController();
-        UsuarioRoutes usuarioRoutes = new UsuarioRoutes(usuarioController);
-        usuarioRoutes.register(app);
+        // ✅ Registrar todas las rutas desde AppModule
+        AppModule.registerAll(app);
 
         System.out.println("Servidor corriendo en http://0.0.0.0:7000");
     }
