@@ -14,7 +14,7 @@ public class Main {
         }).start( 7000);
 
         // Ruta de prueba
-        app.get("/", ctx -> ctx.result("Hola, mundo!"));
+        app.get("/", ctx -> ctx.result("Prueba de Login y Registros"));
 
         // ✅ Registrar todas las rutas desde AppModule
         AppModule.registerAll(app);
